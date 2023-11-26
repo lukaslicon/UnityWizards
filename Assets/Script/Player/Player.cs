@@ -5,11 +5,15 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed = 5;
 
     private Rigidbody rb;
     private float movementX;
     private float movementY;
+
+    public Transform cameraTransform;
+    float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +29,6 @@ public class Player : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
-        Debug.Log("moving");
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
@@ -34,6 +37,18 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * speed);
+
+        if (movement.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                turnSmoothTime);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            rb.AddForce(moveDir * speed);
+        }
     }
 }
