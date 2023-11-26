@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
         if (movement.magnitude >= 0.1f)
         {
+            // https://www.youtube.com/watch?v=4HpC--2iowE&t=980s
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(
                 transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
