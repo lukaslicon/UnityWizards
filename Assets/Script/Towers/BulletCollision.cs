@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class BulletCollision : MonoBehaviour
 {
+    public int damagePerShot = 15;
     private ScoreUI ScoreManager;
+
 
     private void Start()
     {
@@ -21,13 +23,16 @@ public class BulletCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+
         Debug.Log("Trigger entered by: " + other.gameObject.name);
         if (other.gameObject.CompareTag("enemy"))
         {
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
+            enemyHealth.TakeDamage(damagePerShot);
             if (ScoreManager != null)
             {
-                ScoreManager.UpdateScore(10);
+                //ScoreManager.UpdateScore(10);
                 Debug.Log("Player Gained Score");
             }
             else
@@ -36,4 +41,6 @@ public class BulletCollision : MonoBehaviour
             }
         }
     }
+
+    
 }

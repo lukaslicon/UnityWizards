@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ShootBullet : MonoBehaviour
 
     private float lastShootTime;
 
+    public float bulletDestroyDelay = 5.0f;
+    
     void Update()
     {
         if (Time.time - lastShootTime > shootingCooldown)
@@ -38,6 +41,16 @@ public class ShootBullet : MonoBehaviour
             Vector3 shootDirection = (targetPosition - transform.position).normalized;
             // Apply force to shoot the cube
             cubeRb.AddForce(shootDirection * 10f, ForceMode.Impulse);
+
+            StartCoroutine(DestroyBulletAfterDelay(cube));
         }
+    }
+    IEnumerator DestroyBulletAfterDelay(GameObject bullet)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(bulletDestroyDelay);
+
+        // Destroy the bullet GameObject after the delay
+        Destroy(bullet);
     }
 }
