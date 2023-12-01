@@ -11,7 +11,10 @@ public class ScoreUI : MonoBehaviour
     {
         UpdateScoreText();
     }
-
+    public int GetCurrentScore()
+    {
+        return score;
+    }
     public void UpdateScore(int amount)
     {
         score += amount;

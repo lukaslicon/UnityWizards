@@ -816,6 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 1002363634}
+  scoreManagerObject: {fileID: 494260208}
 --- !u!1 &501010470
 GameObject:
   m_ObjectHideFlags: 0
@@ -5182,7 +5183,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1664714945}
   parentTransform: {fileID: 1066266841}
   spawnInterval: 2
-  maxEnemies: 2
+  maxEnemies: 10
   roundButton: {fileID: 684028302}
   roundText: {fileID: 1298457287}
 --- !u!1 &1996409675
