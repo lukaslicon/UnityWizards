@@ -6,24 +6,26 @@ public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
     private GameObject CurrentPlacingTower;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        if(CurrentPlacingTower != null)
+        if (CurrentPlacingTower != null)
         {
             Ray camray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(camray, out RaycastHit hitInfo, 100f))
+            if (Physics.Raycast(camray, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                CurrentPlacingTower.transform.position = hitInfo.point;
+                // Adjust the tower's position based on hit normal and tower size
+                float towerHeight = .01f;
+                float yOffset = towerHeight / 2f; // Half tower height
+
+                Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
+                CurrentPlacingTower.transform.position = towerPosition;
             }
-            if(Input.GetMouseButtonDown(0)) 
-            { 
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Confirm tower placement when clicking
                 CurrentPlacingTower = null;
             }
         }
@@ -34,5 +36,3 @@ public class TowerPlacement : MonoBehaviour
         CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
     }
 }
-
-
