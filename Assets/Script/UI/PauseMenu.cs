@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused = false;
 
+    private DataManager dataManager;
+
     void Start()
     {
         //hides pause menu
@@ -19,6 +21,8 @@ public class PauseMenu : MonoBehaviour
         resumeButton.onClick.AddListener(ResumeGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
         restartButton.onClick.AddListener(RestartGame);
+
+        dataManager = FindObjectOfType<DataManager>();
     }
 
     void Update()
@@ -57,5 +61,6 @@ public class PauseMenu : MonoBehaviour
     void RestartGame()
     {
         SceneManager.LoadScene("Level1");
+        dataManager.UpdateGamesPlayed(1);
     }
 }

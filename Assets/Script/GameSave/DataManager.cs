@@ -52,4 +52,10 @@ public class DataManager : MonoBehaviour
         enemiesKilled += amount;
         PlayerPrefs.SetInt("enemiesKilled", enemiesKilled);
     }
+
+    public void UpdateGamesPlayed(int amount)
+    {
+        gamesPlayed += amount;
+        PlayerPrefs.SetInt("gamesPlayed", gamesPlayed);
+    }
 }
