@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
 
     public Gradient healthGradient;
     private ScoreUI ScoreManager;
+    private DataManager dataManager;
     
     void Start()
     {
@@ -18,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
 
         ScoreManager = FindObjectOfType<ScoreUI>();
+        dataManager = FindObjectOfType<DataManager>();
         UpdateHealthBar();
     }
 
@@ -42,6 +44,8 @@ public class EnemyHealth : MonoBehaviour
         ScoreManager.UpdateScore(10);
         // Destroy the enemy GameObject
         Destroy(gameObject);
+        // Notify Data Manager
+        dataManager.UpdateEnemyCount(1);
     }
 
     

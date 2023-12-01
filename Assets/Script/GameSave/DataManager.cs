@@ -6,8 +6,14 @@ public class DataManager : MonoBehaviour
 {
     private ScoreUI ScoreManager;
 
+    // stats
     private int maxScore = 0;
+    private int gamesPlayed = 0;
 
+    // achievements
+    private int enemiesKilled = 0;
+    private int towersPlaced = 0;
+    private int balloonsPopped = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,14 +38,18 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    void SavePrefs()
-    {
-
-    }
-
     void LoadPrefs()
     {
         maxScore = PlayerPrefs.GetInt("maxScore", 0);
-        Debug.Log("MAXSCORE:" + maxScore);
+        gamesPlayed = PlayerPrefs.GetInt("gamesPlayed", 0);
+        enemiesKilled = PlayerPrefs.GetInt("enemiesKilled", 0);
+        towersPlaced = PlayerPrefs.GetInt("towersPlaced", 0);
+        balloonsPopped = PlayerPrefs.GetInt("balloonsPopped", 0);
+    }
+
+    public void UpdateEnemyCount(int amount)
+    {
+        enemiesKilled += amount;
+        PlayerPrefs.SetInt("enemiesKilled", enemiesKilled);
     }
 }
