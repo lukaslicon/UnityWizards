@@ -22,7 +22,6 @@ public class TowerPlacement : MonoBehaviour
             {
                 CurrentPlacingTower.transform.position = hitInfo.point;
             }
-
             if(Input.GetMouseButtonDown(0)) 
             { 
                 CurrentPlacingTower = null;
