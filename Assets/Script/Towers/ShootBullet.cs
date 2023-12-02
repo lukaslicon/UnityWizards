@@ -7,10 +7,7 @@ public class ShootBullet : MonoBehaviour
     public float shootingRange = 10f;
     public float shootingCooldown = 1f;
     public float bulletDestroyDelay = 5.0f;
-
     private float lastShootTime;
-
-    public float bulletDestroyDelay = 5.0f;
 
     void Update()
     {

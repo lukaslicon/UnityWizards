@@ -60,7 +60,7 @@ public class PauseMenu : MonoBehaviour
 
     void RestartGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Ocean");
         dataManager.UpdateGamesPlayed(1);
     }
 }
