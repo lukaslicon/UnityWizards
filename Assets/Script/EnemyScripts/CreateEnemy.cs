@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // Import TextMeshPro library
 
+[System.Serializable]
+public class SpawnPointEnemy // Class to associate spawn points with enemy prefabs
+{
+    public Transform spawnPoint;
+    public GameObject enemyPrefab;
+}
+
 public class CreateEnemy : MonoBehaviour
 {
-    public GameObject enemyPrefab; // Assign your enemy prefab in the Inspector
-    public Transform spawnPoint;
+    public SpawnPointEnemy[] spawnPointsEnemies; // Array of SpawnPointEnemy to associate spawn points with enemy prefabs
     public Transform parentTransform; // Assign the parent transform in the Inspector
     public float spawnInterval = 2.0f;
     public int maxEnemies = 2;
@@ -15,31 +21,33 @@ public class CreateEnemy : MonoBehaviour
     public TextMeshProUGUI roundText; // Reference to the TextMeshPro Text
     private int enemiesSpawned = 0;
     private int currentRound = 0;
+    private int currentSpawnPointIndex = 0; // Index to track the current spawn point
 
     void Start()
     {
         roundButton.onClick.AddListener(StartNextRound);
     }
+
     void StartNextRound()
     {
         UpdateRoundText();
         InvokeRepeating("SpawnEnemy", 0, spawnInterval);
         roundButton.interactable = false;
-        
     }
 
     void SpawnEnemy()
     {
         if (enemiesSpawned < maxEnemies)
         {
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject enemy = Instantiate(spawnPointsEnemies[currentSpawnPointIndex].enemyPrefab, spawnPointsEnemies[currentSpawnPointIndex].spawnPoint.position, spawnPointsEnemies[currentSpawnPointIndex].spawnPoint.rotation);
             if (parentTransform != null)
             {
                 enemy.transform.parent = parentTransform;
             }
 
-            Debug.Log("Enemy Created!");
+            Debug.Log("Enemy Created at Spawn Point " + (currentSpawnPointIndex + 1));
             enemiesSpawned++;
+            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnPointsEnemies.Length; // Move to the next spawn point
         }
         else
         {
@@ -49,7 +57,7 @@ public class CreateEnemy : MonoBehaviour
             enemiesSpawned = 0;
         }
     }
- 
+
     void UpdateRoundText()
     {
         currentRound++;

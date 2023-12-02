@@ -303,7 +303,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.39, y: 1.39, z: 6}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5874994827941215245}
@@ -344,7 +344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 2456553789184463788, guid: c5c6904e9cfd39a44ada77c79eb8a81e, type: 3}
-  bulletSpawnPoint: {fileID: 2456553789184463788, guid: c5c6904e9cfd39a44ada77c79eb8a81e, type: 3}
   shootingRange: 15
   shootingCooldown: 1.5
   bulletDestroyDelay: 4
