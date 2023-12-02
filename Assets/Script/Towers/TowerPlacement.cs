@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI; // Import Unity's UI namespace
 
 public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
+    [SerializeField] private GameObject scoreManagerObject; // Reference to ScoreManager GameObject
     private GameObject CurrentPlacingTower;
+    private ScoreUI scoreManager;
+
+    void Start()
+    {
+        // Get the ScoreManager script component from the scoreManagerObject
+        scoreManager = scoreManagerObject.GetComponent<ScoreUI>();
+    }
 
     void Update()
     {
@@ -33,6 +42,18 @@ public class TowerPlacement : MonoBehaviour
 
     public void SetTowerToPlace(GameObject tower)
     {
-        CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+        if (scoreManager.GetCurrentScore() >= 30)
+        {
+            // Deduct points for building a tower using ScoreManager
+            scoreManager.UpdateScore(-30);
+
+            // Instantiate the tower if enough points are available
+            CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Insufficient points to build the tower!");
+            // Handle the case where there are not enough points to build a tower
+        }
     }
 }

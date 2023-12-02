@@ -4,25 +4,28 @@ using System.Collections;
 public class ShootBullet : MonoBehaviour
 {
     public GameObject cubePrefab;
-    public GameObject bulletSpawnPoint; // Reference to the bullet spawn point
     public float shootingRange = 10f;
     public float shootingCooldown = 1f;
-    public float bulletDestroyDelay = 1.0f;
+    public float bulletDestroyDelay = 5.0f;
 
     private float lastShootTime;
+
+    public float bulletDestroyDelay = 5.0f;
 
     void Update()
     {
         if (Time.time - lastShootTime > shootingCooldown)
         {
-            Collider[] colliders = Physics.OverlapSphere(bulletSpawnPoint.transform.position, shootingRange);
+            // Check for enemies within the shooting range
+            Collider[] colliders = Physics.OverlapSphere(transform.position, shootingRange);
             foreach (Collider collider in colliders)
             {
                 if (collider.CompareTag("enemy"))
                 {
+                    // Shoot at the enemy
                     ShootCube(collider.transform.position);
                     lastShootTime = Time.time;
-                    break;
+                    break; // Only shoot at one enemy per cooldown
                 }
             }
         }
@@ -30,17 +33,20 @@ public class ShootBullet : MonoBehaviour
 
     void ShootCube(Vector3 targetPosition)
     {
-        GameObject cube = Instantiate(cubePrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
+        // Instantiate a cube prefab and shoot it towards the enemy
+        GameObject cube = Instantiate(cubePrefab, transform.position, Quaternion.identity);
         Rigidbody cubeRb = cube.GetComponent<Rigidbody>();
         if (cubeRb != null)
         {
-            Vector3 shootDirection = (targetPosition - bulletSpawnPoint.transform.position).normalized;
+            // Calculate the direction towards the enemy
+            Vector3 shootDirection = (targetPosition - transform.position).normalized;
+            // Apply force to shoot the cube
             cubeRb.AddForce(shootDirection * 10f, ForceMode.Impulse);
 
-            cube.AddComponent<CubeCollisionHandler>();
+        }cube.AddComponent<CubeCollisionHandler>();
     }
 }
-}
+
 
 public class CubeCollisionHandler : MonoBehaviour
 {
