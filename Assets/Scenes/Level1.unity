@@ -441,6 +441,11 @@ Transform:
   - {fileID: 1682894007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &258130455 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5345258317288442231, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
+  m_PrefabInstance: {fileID: 1187893719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &275746745
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +603,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364845557}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &405406491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8255865131328141298, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
+  m_PrefabInstance: {fileID: 1187893719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &405406495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405406491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98533a52c91c664694208542f60a816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 2456553789184463788, guid: c5c6904e9cfd39a44ada77c79eb8a81e, type: 3}
+  bulletSpawnPoint: {fileID: 258130455}
+  shootingRange: 10
+  shootingCooldown: 1.5
+  bulletDestroyDelay: 5
 --- !u!1 &456521000
 GameObject:
   m_ObjectHideFlags: 0
@@ -3246,15 +3273,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868499540763194643, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.831
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 2868499540763194643, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 2868499540763194643, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.143
+      value: -1.63
       objectReference: {fileID: 0}
     - target: {fileID: 2868499540763194643, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3288,12 +3315,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower1
       objectReference: {fileID: 0}
+    - target: {fileID: 8483901160123474638, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
+      propertyPath: bulletSpawnPoint
+      value: 
+      objectReference: {fileID: 258130455}
+    - target: {fileID: 8483901160123474638, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
+      propertyPath: shootingCooldown
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2162014505052054977, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
     - {fileID: 2694288719471502951, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8255865131328141298, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405406495}
   m_SourcePrefab: {fileID: 100100000, guid: da1139cc7d830c742b933c493bf56abf, type: 3}
 --- !u!1 &1298457285
 GameObject:

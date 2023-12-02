@@ -7,7 +7,7 @@ public class ShootBullet : MonoBehaviour
     public GameObject bulletSpawnPoint; // Reference to the bullet spawn point
     public float shootingRange = 10f;
     public float shootingCooldown = 1f;
-    public float bulletDestroyDelay = 5.0f;
+    public float bulletDestroyDelay = 1.0f;
 
     private float lastShootTime;
 
@@ -37,13 +37,17 @@ public class ShootBullet : MonoBehaviour
             Vector3 shootDirection = (targetPosition - bulletSpawnPoint.transform.position).normalized;
             cubeRb.AddForce(shootDirection * 10f, ForceMode.Impulse);
 
-            StartCoroutine(DestroyBulletAfterDelay(cube));
-        }
+            cube.AddComponent<CubeCollisionHandler>();
     }
+}
+}
 
-    IEnumerator DestroyBulletAfterDelay(GameObject bullet)
+public class CubeCollisionHandler : MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(bulletDestroyDelay);
-        Destroy(bullet);
+         if (other.gameObject.CompareTag("enemy")){
+        Destroy(gameObject);
+         }
     }
 }

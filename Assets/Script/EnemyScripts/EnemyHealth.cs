@@ -10,8 +10,10 @@ public class EnemyHealth : MonoBehaviour
     public Image healthBarImage;
 
     public Gradient healthGradient;
+    public GameObject impactParticlePrefab;
     private ScoreUI ScoreManager;
     private DataManager dataManager;
+    
     
     void Start()
     {
@@ -41,6 +43,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         // You can add behavior here, such as triggering an animation or particle effect
+        Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
         ScoreManager.UpdateScore(10);
         // Destroy the enemy GameObject
         Destroy(gameObject);

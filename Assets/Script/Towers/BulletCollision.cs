@@ -7,8 +7,7 @@ public class BulletCollision : MonoBehaviour
 {
     public int damagePerShot = 15;
     private ScoreUI ScoreManager;
-
-
+    
     private void Start()
     {
         // Find the GameManager in the scene
@@ -24,11 +23,10 @@ public class BulletCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-
+        
         Debug.Log("Trigger entered by: " + other.gameObject.name);
         if (other.gameObject.CompareTag("enemy"))
         {
-            //other.gameObject.SetActive(false);
             enemyHealth.TakeDamage(damagePerShot);
             if (ScoreManager != null)
             {
