@@ -36,10 +36,13 @@ public class CreateEnemy : MonoBehaviour
     }
 
     void SpawnEnemy()
+{
+    if (enemiesSpawned < maxEnemies)
     {
-        if (enemiesSpawned < maxEnemies)
+        if (currentSpawnPointIndex < spawnPointsEnemies.Length)
         {
             GameObject enemy = Instantiate(spawnPointsEnemies[currentSpawnPointIndex].enemyPrefab, spawnPointsEnemies[currentSpawnPointIndex].spawnPoint.position, spawnPointsEnemies[currentSpawnPointIndex].spawnPoint.rotation);
+
             if (parentTransform != null)
             {
                 enemy.transform.parent = parentTransform;
@@ -51,12 +54,17 @@ public class CreateEnemy : MonoBehaviour
         }
         else
         {
-            Debug.Log("Max enemies reached. Stopping spawning.");
-            CancelInvoke("SpawnEnemy");
-            roundButton.interactable = true;
-            enemiesSpawned = 0;
+            Debug.LogError("Invalid spawn point index: " + currentSpawnPointIndex);
         }
     }
+    else
+    {
+        Debug.Log("Max enemies reached. Stopping spawning.");
+        CancelInvoke("SpawnEnemy");
+        roundButton.interactable = true;
+        enemiesSpawned = 0;
+    }
+}
 
     void UpdateRoundText()
     {
