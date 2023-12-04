@@ -10,10 +10,14 @@ public class TowerPlacement : MonoBehaviour
     private GameObject CurrentPlacingTower;
     private ScoreUI scoreManager;
 
+    private DataManager dataManager;
+
+
     void Start()
     {
         // Get the ScoreManager script component from the scoreManagerObject
         scoreManager = scoreManagerObject.GetComponent<ScoreUI>();
+        dataManager = FindObjectOfType<DataManager>();
     }
 
     void Update()
@@ -36,6 +40,7 @@ public class TowerPlacement : MonoBehaviour
             {
                 // Confirm tower placement when clicking
                 CurrentPlacingTower = null;
+                dataManager.UpdateTowersPlaced(1);
             }
         }
     }
