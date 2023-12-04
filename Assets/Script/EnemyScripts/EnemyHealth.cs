@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
         // Make the health bar face the camera
         if (Camera.main != null)
         {
-            healthBarImage.transform.LookAt(Camera.main.transform);
+           healthBarImage.transform.LookAt(Camera.main.transform);
         }
     }
     // Method to decrease enemy health
