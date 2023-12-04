@@ -45,9 +45,9 @@ public class DataManager : MonoBehaviour
         maxScore = PlayerPrefs.GetInt("maxScore", 0);
         gamesPlayed = PlayerPrefs.GetInt("gamesPlayed", 0);
         enemiesKilled = PlayerPrefs.GetInt("enemiesKilled", 0);
-        ResetEnemiesKilled(0);
+        // ResetEnemiesKilled(0);
         towersPlaced = PlayerPrefs.GetInt("towersPlaced", 0);
-        ResetTowersPlaced(0);
+        // ResetTowersPlaced(0);
         balloonsPopped = PlayerPrefs.GetInt("balloonsPopped", 0);
     }
 

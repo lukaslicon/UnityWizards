@@ -7,8 +7,9 @@ public class ShootBullet : MonoBehaviour
     public float shootingRange = 10f;
     public float shootingCooldown = 1f;
     public float bulletDestroyDelay = 5.0f;
+    public AudioClip shootSound;
     private float lastShootTime;
-
+    
     void Update()
     {
         if (Time.time - lastShootTime > shootingCooldown)
@@ -40,17 +41,49 @@ public class ShootBullet : MonoBehaviour
             // Apply force to shoot the cube
             cubeRb.AddForce(shootDirection * 10f, ForceMode.Impulse);
 
-        }cube.AddComponent<CubeCollisionHandler>();
+        }
+        // Play the shooting sound
+            if (shootSound != null)
+            {
+                AudioSource.PlayClipAtPoint(shootSound, transform.position);
+            }
+        cube.AddComponent<CubeCollisionHandler>();
     }
 }
 
 
 public class CubeCollisionHandler : MonoBehaviour
 {
+    public float explosionRadius = 30f;
+    public int explosionDamage = 10;
+
     private void OnTriggerEnter(Collider other)
     {
-         if (other.gameObject.CompareTag("enemy")){
-        Destroy(gameObject);
-         }
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            // Deal damage in the radius
+            DealExplosiveDamage();
+
+            // Destroy the cube
+            Destroy(gameObject);
+        }
+    }
+
+    void DealExplosiveDamage()
+    {
+        // Find all colliders in the explosion radius
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("enemy"))
+            {
+                // Apply damage to enemies within the radius
+                EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(explosionDamage);
+                }
+            }
+        }
     }
 }

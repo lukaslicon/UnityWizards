@@ -22,9 +22,17 @@ public class EnemyHealth : MonoBehaviour
 
         ScoreManager = FindObjectOfType<ScoreUI>();
         dataManager = FindObjectOfType<DataManager>();
+        healthBarImage = GetComponentInChildren<Image>();
         UpdateHealthBar();
     }
-
+    void Update()
+    {
+        // Make the health bar face the camera
+        if (Camera.main != null)
+        {
+            healthBarImage.transform.LookAt(Camera.main.transform);
+        }
+    }
     // Method to decrease enemy health
     public void TakeDamage(int damage)
     {
@@ -64,4 +72,5 @@ public class EnemyHealth : MonoBehaviour
             healthBarImage.color = healthGradient.Evaluate(1 - fillAmount);
         }
     }
+    
 }

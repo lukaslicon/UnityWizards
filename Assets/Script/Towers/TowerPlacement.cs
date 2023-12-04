@@ -7,6 +7,9 @@ public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
     [SerializeField] private GameObject scoreManagerObject; // Reference to ScoreManager GameObject
+
+
+    public int TowerCost = 30;
     private GameObject CurrentPlacingTower;
     private ScoreUI scoreManager;
 
@@ -47,10 +50,10 @@ public class TowerPlacement : MonoBehaviour
 
     public void SetTowerToPlace(GameObject tower)
     {
-        if (scoreManager.GetCurrentScore() >= 30)
+        if (scoreManager.GetCurrentScore() >= TowerCost)
         {
             // Deduct points for building a tower using ScoreManager
-            scoreManager.UpdateScore(-30);
+            scoreManager.UpdateScore(-TowerCost);
 
             // Instantiate the tower if enough points are available
             CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
