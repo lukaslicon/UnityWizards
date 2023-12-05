@@ -381,3 +381,4 @@ MonoBehaviour:
     m_NumAlphaKeys: 3
   impactParticlePrefab: {fileID: 4787146697146794734, guid: e9050f838eb01db44b8958e4d8266866, type: 3}
   deathSound: {fileID: 8300000, guid: a1ca2c76a5257b04a91f8e3737bd9c97, type: 3}
+  deathSound2: {fileID: 8300000, guid: 95b2118757035b04a8b187788dff1cf7, type: 3}

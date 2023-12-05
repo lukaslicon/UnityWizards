@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
     public Gradient healthGradient;
     public GameObject impactParticlePrefab;
     public AudioClip deathSound;
+    public AudioClip deathSound2;
     private ScoreUI ScoreManager;
     private DataManager dataManager;
     
@@ -61,10 +62,22 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
         // Notify Data Manager
         dataManager.UpdateEnemyCount(1);
+        if (Random.Range(0, 2) == 0)
+    {
+        // Play the first death sound
         if (deathSound != null)
-            {
-                AudioSource.PlayClipAtPoint(deathSound, transform.position);
-            }
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        }
+    }
+    else
+    {
+        // Play the second death sound
+        if (deathSound2 != null)
+        {
+            AudioSource.PlayClipAtPoint(deathSound2, transform.position);
+        }
+    }
     }
 
     
