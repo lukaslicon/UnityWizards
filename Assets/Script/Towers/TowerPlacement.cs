@@ -11,9 +11,13 @@ public class TowerPlacement : MonoBehaviour
 
     public int TowerCost = 30;
     private GameObject CurrentPlacingTower;
+
+    public string towerPlacementPlatformTag = "TowerPlacementPlatform";
     private ScoreUI scoreManager;
 
     private DataManager dataManager;
+
+    
 
 
     void Start()
@@ -31,12 +35,13 @@ public class TowerPlacement : MonoBehaviour
 
             if (Physics.Raycast(camray, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                // Adjust the tower's position based on hit normal and tower size
-                float towerHeight = .01f;
-                float yOffset = towerHeight / 2f; // Half tower height
+                    // Adjust the tower's position based on hit normal and tower size
+                    float towerHeight = .01f;
+                    float yOffset = towerHeight / 2f; // Half tower height
 
-                Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
-                CurrentPlacingTower.transform.position = towerPosition;
+                    Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
+                    CurrentPlacingTower.transform.position = towerPosition;
+            
             }
 
             if (Input.GetMouseButtonDown(0))

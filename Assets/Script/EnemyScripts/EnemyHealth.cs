@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
 
     public Gradient healthGradient;
     public GameObject impactParticlePrefab;
+    public AudioClip deathSound;
     private ScoreUI ScoreManager;
     private DataManager dataManager;
     
@@ -51,12 +52,19 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         // You can add behavior here, such as triggering an animation or particle effect
-        Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
+        GameObject impactParticles = Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
+        //particles won't stay forever, destroyed after the "duration" on the particle system
+        float particleDestroyDelay = impactParticles.GetComponent<ParticleSystem>().main.duration; 
+        Destroy(impactParticles, particleDestroyDelay);
         ScoreManager.UpdateScore(10);
         // Destroy the enemy GameObject
         Destroy(gameObject);
         // Notify Data Manager
         dataManager.UpdateEnemyCount(1);
+        if (deathSound != null)
+            {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position);
+            }
     }
 
     

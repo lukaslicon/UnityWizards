@@ -62,7 +62,9 @@ public class CubeCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("enemy"))
         {
             // Deal damage in the radius
+            if(gameObject.CompareTag("AOE")){
             DealExplosiveDamage();
+            }
 
             // Destroy the cube
             Destroy(gameObject);
