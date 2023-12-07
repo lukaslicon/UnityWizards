@@ -7,10 +7,12 @@ public class ShootBullet : MonoBehaviour
     public float shootingRange = 10f;
     public float shootingCooldown = 1f;
     public float bulletDestroyDelay = 5.0f;
+
     public AudioClip shootSound;
     private float lastShootTime;
     [SerializeField] public float explosionRadius = 30f;
     [SerializeField] public int explosionDamage = 10;
+
     void Update()
     {
         if (Time.time - lastShootTime > shootingCooldown)
@@ -57,16 +59,18 @@ public class CubeCollisionHandler : MonoBehaviour
 {
     public float explosionRadius = 30f;
     public int explosionDamage = 10;
+    public int bounceCount = 1;
+    public float bounceRange = 5f;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("enemy"))
         {
             // Deal damage in the radius
-            if(gameObject.CompareTag("AOE")){
-            DealExplosiveDamage();
+            if (gameObject.CompareTag("AOE"))
+            {
+                DealExplosiveDamage();
             }
-
             // Destroy the cube
             Destroy(gameObject);
         }
@@ -90,3 +94,4 @@ public class CubeCollisionHandler : MonoBehaviour
         }
     }
 }
+

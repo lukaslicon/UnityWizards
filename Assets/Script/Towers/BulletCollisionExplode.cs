@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class BulletCollisionExplode : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject impactParticlePrefab;
+    public int numberOfParticles = 5; // Number of particles to instantiate
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Instantiate impact particle system
-        Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
-
-        // Apply damage or other logic based on the collision
-        // For example, you might check the tag of the collided object and apply damage to an enemy
+        // Instantiate multiple impact particle systems
+        for (int i = 0; i < numberOfParticles; i++)
+        {
+            Instantiate(impactParticlePrefab, transform.position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        }
 
         // Destroy the bullet
         Destroy(gameObject);

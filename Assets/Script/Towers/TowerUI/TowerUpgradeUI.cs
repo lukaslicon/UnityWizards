@@ -7,7 +7,10 @@ public class TowerUpgradeUI : MonoBehaviour
     public TextMeshProUGUI attackSpeedText;
     public TextMeshProUGUI explosionRadiusText;
     public TextMeshProUGUI explosionDamageText;
-   // public TextMeshProUGUI shootingRangeText;
+    public TextMeshProUGUI attackSpeedAttr;
+    public TextMeshProUGUI explosionRadiusAttr;
+    public TextMeshProUGUI explosionDamageAttr;
+    // public TextMeshProUGUI shootingRangeText;
 
     private bool isClicked = false;
     private GameObject tower;
@@ -62,10 +65,13 @@ public class TowerUpgradeUI : MonoBehaviour
 
     private void UpdateUI()
     {
+        attackSpeedAttr.text = "Attack Cooldown: " + component.GetComponent<ShootBullet>().shootingCooldown;
         attackSpeedText.text = "Level: " + attackSpeedLevel;
         explosionRadiusText.text = "Level: " + explosionRadiusLevel;
+        explosionRadiusAttr.text = "Explosion Radius: " + component.GetComponent<ShootBullet>().explosionRadius;
         explosionDamageText.text = "Level: " + explosionDamageLevel;
-       // shootingRangeText.text = "Shooting Range: " + shootingRangeLevel;
+        explosionDamageAttr.text = "Explosion DMG: " + component.GetComponent<ShootBullet>().explosionDamage;
+        // shootingRangeText.text = "Shooting Range: " + shootingRangeLevel;
     }
 
     private void ToggleUpgradeUI(bool condition)

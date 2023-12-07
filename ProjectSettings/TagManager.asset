@@ -9,6 +9,7 @@ TagManager:
   - enemy
   - AOE
   - TowerPlacementPlatform
+  - Bounce
   layers:
   - Default
   - TransparentFX

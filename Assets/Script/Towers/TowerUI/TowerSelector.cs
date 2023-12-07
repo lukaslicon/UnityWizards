@@ -15,16 +15,17 @@ public class TowerSelector : MonoBehaviour
             GameObject selectedTower = hit.collider.gameObject;
             if (Input.GetMouseButtonDown(1))
             {
+                Debug.Log("Input on tower.");
                 if (selectedTower != null)
                 {
-                    OpenTowerUI(selectedTower);
+                    OpenTowerCUI(selectedTower);
                 }
             }
         }
        
     }
 
-    void OpenTowerUI(GameObject tower)
+    void OpenTowerCUI(GameObject tower)
     {
         TowerUpgradeUI upgradeUI = tower.GetComponentInChildren<TowerUpgradeUI>();
         if (upgradeUI != null)
