@@ -6,22 +6,45 @@ public class TowerBUpgrades : MonoBehaviour
     public GameObject upgradeMenuUI;
     public TextMeshProUGUI attackSpeedText;
     public TextMeshProUGUI attackSpeedAttr;
+
     //public TextMeshProUGUI explosionRadiusText;
+
     public TextMeshProUGUI explosionDamageText;
     public TextMeshProUGUI explosionDamageAttr;
+
     public TextMeshProUGUI shootingRangeText;
     public TextMeshProUGUI shootingRangeAttr;
+
+    public TextMeshProUGUI attackSpeedCostText; // Text for attack speed upgrade cost
+    public TextMeshProUGUI explosionDamageCostText; // Text for explosion damage upgrade cost
+    public TextMeshProUGUI shootingRangeCostText; // Text for shooting range upgrade cost
 
     private bool isClicked = false;
     private GameObject tower;
     public GameObject component;
+
     private int attackSpeedLevel = 0;
     private int explosionRadiusLevel = 0;
     private int explosionDamageLevel = 0;
     private int shootingRangeLevel = 0;
 
+    private int attackSpeedUpgradeCost = 10;
+    private int explosionRadiusCost = 10;
+    private int explosionDamageCost = 10;
+    private int shootingRangeCost = 10;
 
-    public void SetTower(GameObject towerObject)
+    private ScoreUI scoreManager;
+
+    private void Start()
+    {
+        scoreManager = FindObjectOfType<ScoreUI>();
+        if (scoreManager == null)
+        {
+            Debug.LogError("ScoreManager not found in the scene!");
+            // Handle the case where the ScoreManager is not found
+        }
+   }
+        public void SetTower(GameObject towerObject)
     {
         TurnUIon();
         tower = towerObject;
@@ -30,32 +53,106 @@ public class TowerBUpgrades : MonoBehaviour
 
     public void UpgradeAttackSpeed()
     {
-        if (component.GetComponent<ShootBullet>().shootingCooldown <= .5)
+        int upgradeCost = attackSpeedUpgradeCost * (attackSpeedLevel + 1);
+        if (scoreManager.GetCurrentScore() >= upgradeCost)
         {
-            Debug.Log("MAX SPEED UPGRADES");
+            if (component.GetComponent<ShootBullet>().shootingCooldown <= 0.5f)
+            {
+                Debug.Log("MAX SPEED UPGRADES");
+            }
+            else
+            {
+                component.GetComponent<ShootBullet>().shootingCooldown -= 0.25f;
+                attackSpeedLevel += 1;
+                scoreManager.UpdateScore(-upgradeCost);
+                UpdateAttackSpeedCostText();
+                UpdateUI();
+            }
         }
         else
         {
-            component.GetComponent<ShootBullet>().shootingCooldown -= .25f;
-            attackSpeedLevel += 1;
-            UpdateUI();
+            Debug.Log("Insufficient points to upgrade attack speed!");
+            // Handle case where there are not enough points for the upgrade
         }
     }
 
     public void UpgradeExplosionDamage()
     {
-        component.GetComponent<ShootBullet>().explosionDamage += 5;
-        explosionDamageLevel += 1;
-        UpdateUI();
+        int upgradeCost = explosionDamageCost * (explosionDamageLevel + 1);
+        if (scoreManager.GetCurrentScore() >= upgradeCost)
+        {
+            component.GetComponent<ShootBullet>().explosionDamage += 1;
+            explosionDamageLevel += 1;
+            scoreManager.UpdateScore(-upgradeCost);
+            UpdateExplosionDamageCostText();
+            UpdateUI();
+        }
+        else
+        {
+            Debug.Log("Insufficient points to upgrade explosion damage!");
+            // Handle case where there are not enough points for the upgrade
+        }
     }
 
     public void UpgradeShootingRange()
     {
-        component.GetComponent<ShootBullet>().shootingRange += 5;
-        shootingRangeLevel += 1;
-        UpdateUI();
+        int upgradeCost = shootingRangeCost * (shootingRangeLevel + 1);
+        if (scoreManager.GetCurrentScore() >= upgradeCost)
+        {
+            component.GetComponent<ShootBullet>().shootingRange += 2;
+            shootingRangeLevel += 1;
+            scoreManager.UpdateScore(-upgradeCost);
+            UpdateShootingRangeCostText();
+            UpdateUI();
+        }
+        else
+        {
+            Debug.Log("Insufficient points to upgrade shooting range!");
+            // Handle case where there are not enough points for the upgrade
+        }
     }
 
+
+    private void UpdateAttackSpeedCostText()
+    {
+        if (attackSpeedCostText != null)
+        {
+            int currentUpgradeCost = attackSpeedUpgradeCost * (attackSpeedLevel + 1);
+            attackSpeedCostText.text = "Cost\n" + currentUpgradeCost;
+        }
+        else
+        {
+            Debug.LogWarning("AttackSpeedCostText not assigned!");
+            // Handle the case where AttackSpeedCostText is not assigned
+        }
+    }
+    private void UpdateExplosionDamageCostText()
+    {
+        if (explosionDamageCostText != null)
+        {
+            int currentUpgradeCost = explosionDamageCost * (explosionDamageLevel + 1);
+            explosionDamageCostText.text = "Cost\n" + currentUpgradeCost;
+        }
+        else
+        {
+            Debug.LogWarning("ExplosionDamageCostText not assigned!");
+            // Handle the case where ExplosionDamageCostText is not assigned
+        }
+    }
+
+    private void UpdateShootingRangeCostText()
+    {
+        if (shootingRangeCostText != null)
+        {
+            int currentUpgradeCost = shootingRangeCost * (shootingRangeLevel + 1);
+            shootingRangeCostText.text = "Cost\n" + currentUpgradeCost;
+        }
+        else
+        {
+            Debug.LogWarning("ShootingRangeCostText not assigned!");
+            // Handle the case where ShootingRangeCostText is not assigned
+        }
+    }
     private void UpdateUI()
     {
         attackSpeedText.text = "Level: " + attackSpeedLevel;
@@ -81,4 +178,6 @@ public class TowerBUpgrades : MonoBehaviour
     {
         ToggleUpgradeUI(false);
     }
+
+
 }

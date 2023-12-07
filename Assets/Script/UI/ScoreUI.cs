@@ -5,10 +5,11 @@ using TMPro;
 public class ScoreUI : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    public int score = 0;
+    public int score = 100;
 
     private void Start()
     {
+        score = 100;
         UpdateScoreText();
     }
     public int GetCurrentScore()
