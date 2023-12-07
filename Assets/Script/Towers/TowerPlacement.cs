@@ -35,23 +35,35 @@ public class TowerPlacement : MonoBehaviour
 
             if (Physics.Raycast(camray, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                    // Adjust the tower's position based on hit normal and tower size
-                    float towerHeight = .01f;
-                    float yOffset = towerHeight / 2f; // Half tower height
-
-                    Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
-                    CurrentPlacingTower.transform.position = towerPosition;
-            
+                // Adjust the tower's position based on hit normal and tower size
+                float towerHeight = .01f;
+                Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
+                CurrentPlacingTower.transform.position = towerPosition;
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                // Confirm tower placement when clicking
-                CurrentPlacingTower = null;
-                dataManager.UpdateTowersPlaced(1);
+                // Update the tower platform status
+                RaycastHit hit;
+                Ray towerRay = new Ray(CurrentPlacingTower.transform.position + Vector3.up, Vector3.down);
+
+                if (Physics.Raycast(towerRay, out hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+                {
+                    TowerPlacementPlatform towerPlatform = hit.collider.GetComponent<TowerPlacementPlatform>();
+                    if (towerPlatform.HasTower() == false)
+                    {
+                        // Confirm tower placement when clicking
+                        CurrentPlacingTower = null;
+                        dataManager.UpdateTowersPlaced(1);
+                        towerPlatform.UpdateTowerStatus(true);
+                    }
+                }
+
+
             }
         }
     }
+
 
     public void SetTowerToPlace(GameObject tower)
     {
@@ -59,7 +71,6 @@ public class TowerPlacement : MonoBehaviour
         {
             // Deduct points for building a tower using ScoreManager
             scoreManager.UpdateScore(-TowerCost);
-
             // Instantiate the tower if enough points are available
             CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
         }
