@@ -22,7 +22,6 @@ public class TowerPlacement : MonoBehaviour
 
     void Start()
     {
-        // Get the ScoreManager script component from the scoreManagerObject
         scoreManager = scoreManagerObject.GetComponent<ScoreUI>();
         dataManager = FindObjectOfType<DataManager>();
     }
@@ -33,26 +32,26 @@ public class TowerPlacement : MonoBehaviour
         {
             Ray camray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
 
+            //raycast on to ground layer
             if (Physics.Raycast(camray, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                // Adjust the tower's position based on hit normal and tower size
-                float towerHeight = .01f;
-                Vector3 towerPosition = hitInfo.point + hitInfo.normal * towerHeight;
+                //set
+                Vector3 towerPosition = hitInfo.point + hitInfo.normal * .01f;
                 CurrentPlacingTower.transform.position = towerPosition;
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                // Update the tower platform status
                 RaycastHit hit;
                 Ray towerRay = new Ray(CurrentPlacingTower.transform.position + Vector3.up, Vector3.down);
 
+                //check if raycast is on tile
                 if (Physics.Raycast(towerRay, out hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
                 {
                     TowerPlacementPlatform towerPlatform = hit.collider.GetComponent<TowerPlacementPlatform>();
                     if (towerPlatform.HasTower() == false)
                     {
-                        // Confirm tower placement when clicking
+                        //palce tower
                         CurrentPlacingTower = null;
                         dataManager.UpdateTowersPlaced(1);
                         towerPlatform.UpdateTowerStatus(true);
@@ -64,7 +63,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-
+    //function for button setting a tower to place
     public void SetTowerToPlace(GameObject tower)
     {
         if (scoreManager.GetCurrentScore() >= TowerCost)
