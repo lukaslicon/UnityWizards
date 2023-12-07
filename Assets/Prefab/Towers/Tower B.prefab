@@ -166,7 +166,7 @@ RectTransform:
   m_Children:
   - {fileID: 2478795847380983941}
   - {fileID: 3207406460668627037}
-  - {fileID: 3465734976448855665}
+  - {fileID: 3368167394098104713}
   m_Father: {fileID: 1879429559398376105}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 6042807849768578289}
   - component: {fileID: 8977741040894693619}
   m_Layer: 5
-  m_Name: rangeattr (2)
+  m_Name: aoedmg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,11 +298,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4502342834098722685}
+  m_Father: {fileID: 2369655828691815031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00022888184, y: -100.2}
+  m_AnchoredPosition: {x: -0.00022888184, y: -27.641983}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6042807849768578289
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 7672160590675416247}
   - component: {fileID: 8937264247420903804}
   m_Layer: 5
-  m_Name: aoeattr
+  m_Name: rangeattr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,11 +566,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2369655828691815031}
+  m_Father: {fileID: 4502342834098722685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00022888184, y: 44.4}
+  m_AnchoredPosition: {x: -0.00022888184, y: -28.158005}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7672160590675416247
@@ -914,7 +914,7 @@ RectTransform:
   m_Children:
   - {fileID: 6026847533907882266}
   - {fileID: 4192763978093606099}
-  - {fileID: 3368167394098104713}
+  - {fileID: 3465734976448855665}
   m_Father: {fileID: 1879429559398376105}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2819682364449628938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2486,9 +2486,9 @@ MonoBehaviour:
   attackSpeedText: {fileID: 49616122934031394}
   attackSpeedAttr: {fileID: 22027953937728719}
   explosionDamageText: {fileID: 2887306908924990377}
-  explosionDamageAttr: {fileID: 8937264247420903804}
+  explosionDamageAttr: {fileID: 8977741040894693619}
   shootingRangeText: {fileID: 314962064236486688}
-  shootingRangeAttr: {fileID: 8977741040894693619}
+  shootingRangeAttr: {fileID: 8937264247420903804}
   component: {fileID: 6541272758209501038}
 --- !u!136 &2232157490417291705
 CapsuleCollider:
