@@ -7,7 +7,9 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private Camera PlayerCamera;
     [SerializeField] private GameObject scoreManagerObject; // Reference to ScoreManager GameObject
 
-    public int TowerCost = 30;
+    public int TowerACost = 30;
+    public int TowerBCost = 50;
+    public int TowerCCost = 30;
     private GameObject CurrentPlacingTower;
 
     public string towerPlacementPlatformTag = "TowerPlacementPlatform";
@@ -62,12 +64,44 @@ public class TowerPlacement : MonoBehaviour
     }
 
     //function for button setting a tower to place
-    public void SetTowerToPlace(GameObject tower)
+    public void SetTowerAToPlace(GameObject tower)
     {
-        if (scoreManager.GetCurrentScore() >= TowerCost)
+        if (scoreManager.GetCurrentScore() >= TowerACost)
         {
             // Deduct points for building a tower using ScoreManager
-            scoreManager.UpdateScore(-TowerCost);
+            scoreManager.UpdateScore(-TowerACost);
+            // Instantiate the tower if enough points are available
+            CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Insufficient points to build the tower!");
+            // Handle the case where there are not enough points to build a tower
+        }
+    }
+
+    public void SetTowerBToPlace(GameObject tower)
+    {
+        if (scoreManager.GetCurrentScore() >= TowerBCost)
+        {
+            // Deduct points for building a tower using ScoreManager
+            scoreManager.UpdateScore(-TowerBCost);
+            // Instantiate the tower if enough points are available
+            CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Insufficient points to build the tower!");
+            // Handle the case where there are not enough points to build a tower
+        }
+    }
+
+    public void SetTowerCToPlace(GameObject tower)
+    {
+        if (scoreManager.GetCurrentScore() >= TowerCCost)
+        {
+            // Deduct points for building a tower using ScoreManager
+            scoreManager.UpdateScore(-TowerCCost);
             // Instantiate the tower if enough points are available
             CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
         }
