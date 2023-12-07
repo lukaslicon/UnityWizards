@@ -9,7 +9,8 @@ public class ShootBullet : MonoBehaviour
     public float bulletDestroyDelay = 5.0f;
     public AudioClip shootSound;
     private float lastShootTime;
-    
+    [SerializeField] public float explosionRadius = 30f;
+    [SerializeField] public int explosionDamage = 10;
     void Update()
     {
         if (Time.time - lastShootTime > shootingCooldown)

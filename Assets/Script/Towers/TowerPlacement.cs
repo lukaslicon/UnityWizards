@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; // Import Unity's UI namespace
@@ -8,7 +7,6 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private Camera PlayerCamera;
     [SerializeField] private GameObject scoreManagerObject; // Reference to ScoreManager GameObject
 
-
     public int TowerCost = 30;
     private GameObject CurrentPlacingTower;
 
@@ -17,7 +15,7 @@ public class TowerPlacement : MonoBehaviour
 
     private DataManager dataManager;
 
-    
+
 
 
     void Start()
