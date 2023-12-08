@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.ComponentModel;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI; 
+    [SerializeField] private TowerUpgradeUI upgradeUI;
+    public GameObject pauseMenuUI;
+
+    public Button TowerA;
+    public Button TowerB;
+    public Button TowerC;
+
     public Button resumeButton; 
     public Button mainMenuButton;
     public Button restartButton; 
 
-    private bool isPaused = false;
+    public bool isPaused = false;
 
     private DataManager dataManager;
 
@@ -41,6 +48,9 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(pause);
         Time.timeScale = pause ? 0 : 1;
         isPaused = pause;
+        TowerA.gameObject.SetActive(!pause);
+        TowerB.gameObject.SetActive(!pause);
+        TowerC.gameObject.SetActive(!pause);
     }
 
     void PauseGame()
@@ -61,6 +71,5 @@ public class PauseMenu : MonoBehaviour
     void RestartGame()
     {
         SceneManager.LoadScene("Ocean");
-        dataManager.UpdateGamesPlayed(1);
     }
 }

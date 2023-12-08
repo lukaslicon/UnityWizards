@@ -9,6 +9,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class CollisionDestroy: MonoBehaviour
 {
+    public GameOverManager GameManager;
     public Image healthBarImage;
     public TextMeshProUGUI healthText;
     public float health = 100;
@@ -57,6 +58,7 @@ public class CollisionDestroy: MonoBehaviour
             UpdateHealthBar();
             if (health <= 0)
             {
+                GameManager.isGameOver = true;
                 Debug.Log("Game Lost");
             }
         }

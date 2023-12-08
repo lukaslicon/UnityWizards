@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,32 +7,53 @@ public class Aselector : MonoBehaviour
 {
     public Camera PlayerCamera;
     public LayerMask towerLayerMask;
+    public PauseMenu pauseReference;
+    public GameOverManager GameManager;
+    private TowerAUpgrades upgradeUI;
 
     void Update()
     {
         Ray camray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(camray, out RaycastHit hit, Mathf.Infinity, towerLayerMask))
+        if (!pauseReference.isPaused && !GameManager.isGameOver)
         {
-            GameObject selectedTower = hit.collider.gameObject;
-            if (Input.GetMouseButtonDown(1))
+            if (Physics.Raycast(camray, out RaycastHit hit, Mathf.Infinity, towerLayerMask))
             {
-                Debug.Log("Input on tower.");
-                if (selectedTower != null)
+                if (Input.GetMouseButtonDown(1))
                 {
-                    OpenTowerAUI(selectedTower);
+                    GameObject selectedTower = hit.collider.gameObject;
+                    if (selectedTower != null)
+                    {
+                        OpenTowerAUI(selectedTower);
+                    }
                 }
             }
-        }
 
+        }
+        else
+        {
+            Debug.Log(upgradeUI);
+            CloseTowerAUI();
+        }
     }
 
     void OpenTowerAUI(GameObject tower)
     {
-        TowerAUpgrades upgradeUI = tower.GetComponentInChildren<TowerAUpgrades>();
+        upgradeUI = tower.GetComponentInChildren<TowerAUpgrades>();
         if (upgradeUI != null)
         {
             upgradeUI.SetTower(tower);
         }
     }
+
+    void CloseTowerAUI()
+    {
+        if (upgradeUI != null)
+        {
+            Debug.Log(upgradeUI);
+            upgradeUI.TurnUIoff();
+        }
+    }
+
+
 
 }
