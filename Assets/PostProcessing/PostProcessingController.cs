@@ -7,7 +7,7 @@ public class PostProcessingController : MonoBehaviour
     private ColorGrading colorGrading;
 
     private float currentHue = 0f;
-    private float hueChangeRate = 0.1f;
+    private float hueChangeRate = 0.001f;
     public float hueAcceleration = 0.005f;
 
     void Start()

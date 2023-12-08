@@ -52,7 +52,7 @@ public class TowerPlacement : MonoBehaviour
                     TowerPlacementPlatform towerPlatform = hit.collider.GetComponent<TowerPlacementPlatform>();
                     if (towerPlatform.HasTower() == false)
                     {
-                        //palce tower
+                        // place tower
                         CurrentPlacingTower = null;
                         dataManager.UpdateTowersPlaced(1);
                         towerPlatform.UpdateTowerStatus(true);

@@ -11,10 +11,13 @@ public class PopUpAchievements : MonoBehaviour
 
     public GameObject UIParticles;
 
+    private AudioSource audioSource;
+    public AudioClip audioClip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +36,7 @@ public class PopUpAchievements : MonoBehaviour
             rt.localScale = Vector3.one;
 
             // animate icon pop up
+            audioSource.PlayOneShot(audioClip, 0.5f);
             rt.DOLocalMoveY(300, 1f).SetEase(Ease.OutBounce);
 
             GameObject particles = Instantiate(UIParticles, rt);

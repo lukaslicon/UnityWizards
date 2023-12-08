@@ -19,6 +19,9 @@ public class CollisionDestroy: MonoBehaviour
     private ColorGrading colorGrading;
     private ChromaticAberration chromaticAberration;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     private void Start()
     {
         UpdateHealthText();
@@ -30,6 +33,8 @@ public class CollisionDestroy: MonoBehaviour
         {
             UpdateChromaticAberration(health);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
     
     public void UpdateHealth(float amount)
@@ -73,6 +78,7 @@ public class CollisionDestroy: MonoBehaviour
         }
         float healthPercentage = health / maxHealth;
         healthBarImage.fillAmount = healthPercentage;
+        audioSource.PlayOneShot(audioClip, 0.5f);
         healthBarImage.transform.parent.transform.DOShakePosition(0.5f, 20);
     }
 
