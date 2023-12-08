@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CollisionDestroy: MonoBehaviour
 {
@@ -12,14 +13,31 @@ public class CollisionDestroy: MonoBehaviour
     public TextMeshProUGUI healthText;
     public float health = 100;
     public float maxHealth = 100;
+
+    public PostProcessVolume postProcessVolume;
+    private ColorGrading colorGrading;
+    private ChromaticAberration chromaticAberration;
+
     private void Start()
     {
         UpdateHealthText();
+        if (postProcessVolume.profile.TryGetSettings(out colorGrading))
+        {
+            UpdateSaturation(health);
+        }
+        if (postProcessVolume.profile.TryGetSettings(out chromaticAberration))
+        {
+            UpdateChromaticAberration(health);
+        }
     }
+    
     public void UpdateHealth(float amount)
     {
         health -= amount;
         UpdateHealthText();
+        UpdateHealthBar();
+        UpdateSaturation(health);
+        UpdateChromaticAberration(health);
     }
     private void UpdateHealthText()
     {
@@ -54,6 +72,23 @@ public class CollisionDestroy: MonoBehaviour
         float healthPercentage = health / maxHealth;
         healthBarImage.fillAmount = healthPercentage;
         healthBarImage.transform.parent.transform.DOShakePosition(0.5f, 20);
+    }
+
+    private void UpdateSaturation(float health)
+    {
+        if (colorGrading != null)
+        {
+            float saturationValue = Mathf.Lerp(-100, 0, health / maxHealth);
+            colorGrading.saturation.value = saturationValue;
+        }
+    }
+    private void UpdateChromaticAberration(float health)
+    {
+        if (chromaticAberration != null)
+        {
+            float aberrationIntensity = Mathf.Lerp(0, 1, 1 - (health / maxHealth));
+            chromaticAberration.intensity.value = aberrationIntensity;
+        }
     }
 
 }
