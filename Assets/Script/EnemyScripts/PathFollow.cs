@@ -9,6 +9,9 @@ public class PathFollow : MonoBehaviour
 
     private int currentNodeIndex = 0;
 
+    float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
+
     void Start()
     {
         if (pathNodes.Length > 0)
@@ -43,6 +46,14 @@ public class PathFollow : MonoBehaviour
     void MoveTowardsNode()
     {
         // Move the object towards the current node
-        transform.position = Vector3.MoveTowards(transform.position, pathNodes[currentNodeIndex].position, speed * Time.deltaTime);
+        Vector3 direction = Vector3.MoveTowards(transform.position, pathNodes[currentNodeIndex].position, speed * Time.deltaTime);
+
+        float targetAngle = Mathf.Atan2(direction.x - transform.position.x, direction.z - transform.position.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(
+            transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+            turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        transform.position = direction;
     }
 }
