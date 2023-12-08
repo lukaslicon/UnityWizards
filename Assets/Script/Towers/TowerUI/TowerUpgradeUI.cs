@@ -3,6 +3,7 @@ using TMPro;
 
 public class TowerUpgradeUI : MonoBehaviour
 {
+
     public GameObject upgradeMenuUI;
     public TextMeshProUGUI attackSpeedText;
     public TextMeshProUGUI attackSpeedAttr;
@@ -19,6 +20,8 @@ public class TowerUpgradeUI : MonoBehaviour
     public TextMeshProUGUI explosionDamageCostText; // Text for explosion damage upgrade cost
     public TextMeshProUGUI explosionRadiusCostText; // Text for shooting range upgrade cost
 
+
+
     private bool isClicked = false;
     private GameObject tower;
     public GameObject component;
@@ -34,6 +37,7 @@ public class TowerUpgradeUI : MonoBehaviour
     private int shootingRangeCost = 10;
 
     private ScoreUI scoreManager;
+
 
     private void Start()
     {
@@ -158,18 +162,21 @@ public class TowerUpgradeUI : MonoBehaviour
         attackSpeedAttr.text = "Attack Cooldown: " + component.GetComponent<ShootBullet>().shootingCooldown;
         explosionDamageText.text = "Level: " + explosionDamageLevel;
         explosionDamageAttr.text = "Explosion DMG: " + component.GetComponent<ShootBullet>().explosionDamage;
-
+        explosionRadiusText.text = "Level: " + explosionRadiusLevel;
+        explosionRadiusAttr.text = "Aoe Radius: " + component.GetComponent<ShootBullet>().explosionRadius;
     }
 
     private void ToggleUpgradeUI(bool condition)
     {
         upgradeMenuUI.SetActive(condition);
+        Debug.Log(condition);
         isClicked = condition;
     }
 
     private void TurnUIon()
     {
         ToggleUpgradeUI(true);
+        
     }
 
     public void TurnUIoff()
