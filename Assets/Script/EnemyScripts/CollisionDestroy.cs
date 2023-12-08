@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class CollisionDestroy: MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class CollisionDestroy: MonoBehaviour
         }
         float healthPercentage = health / maxHealth;
         healthBarImage.fillAmount = healthPercentage;
+        healthBarImage.transform.parent.transform.DOShakePosition(0.5f, 20);
     }
 
 }
